@@ -20,12 +20,13 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive # ⭐️ 이 한 줄이 핵심! 번역 파일과 에셋 폴더까지 완벽하게 다운로드합니다.
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22' # 경고창 방지를 위해 최신 안정화 버전으로 업그레이드!
-          # 에러의 원인이었던 cache 기능은 과감히 삭제했습니다.
+          node-version: '22'
 
       - name: Install dependencies
         run: npm install
