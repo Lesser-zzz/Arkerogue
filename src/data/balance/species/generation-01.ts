@@ -16173,31 +16173,25 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       baseFriendship: 50,
       baseExp: 50,
       growthRate: GrowthRate.MEDIUM_FAST,
-      malePercent: null, // ⭐️ 핵심 수정: 0이 아니라 null로 설정하여 완벽한 무성(성별 없음) 처리 -> 에셋 로딩 멈춤 방지
-      genderDiffs: false, // ⭐️ 성별에 따른 이미지 차이 없음
+      malePercent: null, // ⭐️ 무한 로딩 방지 (성별 없음)
+      genderDiffs: false, 
     });
 
     // 다국어(번역) 시스템 우회용 이름 강제 지정
     customSpecies.name = op.name;
 
-    // ▼▼▼ 100% 무한 로딩 해결을 위한 '에셋 둔갑' 우회 코드 ▼▼▼
-    customSpecies.getSpriteId = () => "1";     // 배틀 스프라이트는 1번(이상해씨) 사용
-    customSpecies.getIconId = () => "1";       // 미니 아이콘도 1번 사용 (가장 중요한 크래시 방지)
-    customSpecies.getCryKey = () => "cry/1";   // 울음소리도 1번 사용
-    // ▲▲▲ 삽입 끝 ▲▲▲
+    // ▼▼▼ 에셋 크래시 방지 우회 코드 (문법 에러 원천 차단 적용) ▼▼▼
+    (customSpecies as any).getSpriteId = () => "1";
+    (customSpecies as any).getIconId = () => "1";
+    (customSpecies as any).getCryKey = () => "cry/1";
 
     generationOneSpeciesData[op.id as SpeciesId] = {
       species: customSpecies,
-      starter: op.id as SpeciesId, // 가챠/스타팅 화면에 등장하게 만듦
-      // ... (이하 기존 코드 동일)
-
-    generationOneSpeciesData[op.id as SpeciesId] = {
-      species: customSpecies,
-      starter: op.id as SpeciesId, 
-      starterCost: 1,              
-      eggTier: EggTier.COMMON,     
+      starter: op.id as SpeciesId,
+      starterCost: 1,
+      eggTier: EggTier.COMMON,
       levelMoves: [
-        [1, MoveId.TACKLE]         
+        [1, MoveId.TACKLE]
       ],
       tms: []
     };
