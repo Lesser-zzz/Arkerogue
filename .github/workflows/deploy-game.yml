@@ -2,8 +2,8 @@ name: Deploy Game to Pages
 
 on:
   push:
-    branches: ["main"] # 코드를 수정할 때마다 자동 실행
-  workflow_dispatch: # 수동 실행 버튼 생성
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -25,17 +25,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: 9
+          cache: 'npm' # 빌드 속도를 높여주는 캐시 기능 추가!
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Build game
-        run: pnpm run build
+        run: npm run build
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -43,7 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # 조립된 게임이 저장되는 폴더
+          path: './dist'
 
   deploy:
     environment:
