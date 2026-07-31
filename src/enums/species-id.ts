@@ -2167,4 +2167,12 @@ export enum SpeciesId {
   PALDEA_WOOPER = 8194,
   /**{@link https://bulbapedia.bulbagarden.net/wiki/Ursaluna_(Pokémon) | Source} */
   BLOODMOON_URSALUNA = 8901,
+
+  // ▼▼▼ 명일방주 커스텀 ID ▼▼▼
+  AMIYA = 9001,
+  KROOS = 9002,
+  FANG = 9003,
+  BEAGLE = 9004,
+  HIBISCUS = 9005,
+  MELANTHA = 9006,
 }
