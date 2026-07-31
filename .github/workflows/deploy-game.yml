@@ -21,21 +21,20 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          submodules: recursive # 에셋 다운로드 유지
+          submodules: recursive 
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4 # 최신 pnpm 액션 사용
-        with:
-          version: 10 # ⭐️ 아까 났던 에러의 진짜 원인 해결! 반드시 10 버전이어야 합니다.
+        uses: pnpm/action-setup@v4
+        # ⭐️ 충돌을 일으키던 with: version: 10 부분을 완전히 삭제했습니다! 알아서 똑똑하게 설치할 겁니다.
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'pnpm' # 영수증(Lock) 에러 없이 정상 작동하도록 pnpm 캐시 복구!
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install # ⭐️ 다시 pnpm으로 빈틈없이 조립!
+        run: pnpm install
 
       - name: Build game
         run: pnpm run build
