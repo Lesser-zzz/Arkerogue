@@ -16140,7 +16140,7 @@ export function initGenerationOne(): SpeciesDataMapConfig {
   };
 
 
-  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (9001~9006) ▼▼▼
+ // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (9001~9006) ▼▼▼
   const arknightsData = [
     { id: 9001, name: "Amiya" },
     { id: 9002, name: "Kroos" },
@@ -16148,7 +16148,7 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     { id: 9004, name: "Beagle" },
     { id: 9005, name: "Hibiscus" },
     { id: 9006, name: "Melantha" }
-    ];
+  ];
 
   for (const op of arknightsData) {
     const customSpecies = new PokemonSpecies({
@@ -16173,8 +16173,8 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       baseFriendship: 50,
       baseExp: 50,
       growthRate: GrowthRate.MEDIUM_FAST,
-      malePercent: 0,
-      genderDiffs: false,
+      malePercent: null, // ⭐️ 핵심 수정: 0이 아니라 null로 설정하여 완벽한 무성(성별 없음) 처리 -> 에셋 로딩 멈춤 방지
+      genderDiffs: false, // ⭐️ 성별에 따른 이미지 차이 없음
     });
 
     // 다국어(번역) 시스템 우회용 이름 강제 지정
@@ -16182,11 +16182,11 @@ export function initGenerationOne(): SpeciesDataMapConfig {
 
     generationOneSpeciesData[op.id as SpeciesId] = {
       species: customSpecies,
-      starter: op.id as SpeciesId, // 가챠/스타팅 화면에 등장하게 만듦
-      starterCost: 1,              // 스타팅 코스트 (임시)
-      eggTier: EggTier.COMMON,     // 알까기(헤드헌팅) 등급 (임시)
+      starter: op.id as SpeciesId, 
+      starterCost: 1,              
+      eggTier: EggTier.COMMON,     
       levelMoves: [
-        [1, MoveId.TACKLE]         // 레벨 1 기본 스킬 (몸통박치기)
+        [1, MoveId.TACKLE]         
       ],
       tms: []
     };
