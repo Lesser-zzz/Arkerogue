@@ -16180,6 +16180,17 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     // 다국어(번역) 시스템 우회용 이름 강제 지정
     customSpecies.name = op.name;
 
+    // ▼▼▼ 100% 무한 로딩 해결을 위한 '에셋 둔갑' 우회 코드 ▼▼▼
+    customSpecies.getSpriteId = () => "1";     // 배틀 스프라이트는 1번(이상해씨) 사용
+    customSpecies.getIconId = () => "1";       // 미니 아이콘도 1번 사용 (가장 중요한 크래시 방지)
+    customSpecies.getCryKey = () => "cry/1";   // 울음소리도 1번 사용
+    // ▲▲▲ 삽입 끝 ▲▲▲
+
+    generationOneSpeciesData[op.id as SpeciesId] = {
+      species: customSpecies,
+      starter: op.id as SpeciesId, // 가챠/스타팅 화면에 등장하게 만듦
+      // ... (이하 기존 코드 동일)
+
     generationOneSpeciesData[op.id as SpeciesId] = {
       species: customSpecies,
       starter: op.id as SpeciesId, 
