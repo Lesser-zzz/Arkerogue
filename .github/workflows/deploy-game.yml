@@ -21,18 +21,24 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          submodules: recursive # ⭐️ 이 한 줄이 핵심! 번역 파일과 에셋 폴더까지 완벽하게 다운로드합니다.
+          submodules: recursive # 에셋 다운로드 유지
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4 # 최신 pnpm 액션 사용
+        with:
+          version: 10 # ⭐️ 아까 났던 에러의 진짜 원인 해결! 반드시 10 버전이어야 합니다.
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'pnpm' # 영수증(Lock) 에러 없이 정상 작동하도록 pnpm 캐시 복구!
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install # ⭐️ 다시 pnpm으로 빈틈없이 조립!
 
       - name: Build game
-        run: npm run build
+        run: pnpm run build
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
