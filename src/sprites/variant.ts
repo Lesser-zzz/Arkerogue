@@ -142,3 +142,14 @@ export async function populateVariantColorCache(
       }
     });
 }
+
+// 명일방주 오퍼레이터(9001~9006)는 변종 이미지(Variant)가 없음을 강제 선언하여 로딩 무한 대기 방지
+export const arknightsVariantData = {
+  9001: 0,
+  9002: 0,
+  9003: 0,
+  9004: 0,
+  9005: 0,
+  9006: 0
+};
+Object.assign(variantData, arknightsVariantData);
