@@ -43,26 +43,26 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
 
     this.modalContainer.add(this.logo);
 
-    // ▼▼▼ 강제 오프라인 진입 버튼 (중복 없이 딱 1개만!) ▼▼▼
-    const offlineButton = globalScene.add.text(160, 160, '[ Play Offline 강제 진입 ]', {
-      fontSize: '12px',
-      color: '#ffffff',
-      backgroundColor: '#ff0000',
-      padding: { x: 5, y: 5 }
-    })
-    .setOrigin(0.5)
-    .setDepth(99999) // 무조건 맨 위로 끌어올림
-    .setScrollFactor(0) // 위치 고정
-    .setInteractive({ useHandCursor: true });
-
-    offlineButton.on('pointerdown', () => {
-      console.log("강제 오프라인 진입 시도");
+    // ▼▼▼ 강제 오프라인 '자동' 진입 (버튼 클릭조차 필요 없음!) ▼▼▼
+    setTimeout(() => {
+      console.log("1초 경과: 자동 오프라인 진입 실행");
+      
+      // 1. 로그인 껍데기 창 강제 삭제
       this.clear(); 
+      
+      // 2. 엔진을 오프라인 모드로 강제 전환
       if (globalScene.gameData) {
         globalScene.gameData.offline = true;
       }
-      globalScene.ui.setMode(globalScene.ui.modes.MODIFIER_SELECT); 
-    });
+      
+      // 3. 타이틀 화면(또는 스타팅 선택 창)으로 자동 이동
+      try {
+        globalScene.ui.setMode(globalScene.ui.modes.TITLE || globalScene.ui.modes.STARTER_SELECT);
+      } catch (e) {
+        console.error("화면 전환 에러 우회 완료:", e);
+      }
+      
+    }, 1000); // 1000 = 1초 대기 후 실행
     // ▲▲▲ 삽입 끝 ▲▲▲
   }
 
