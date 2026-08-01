@@ -8,7 +8,7 @@
     "start:beta": "vite --mode beta",
     "start:dev": "vite --mode development",
     "start:podman": "vite --mode development --host 0.0.0.0 --port $PORT",
-    "build": "vite build",
+    "build": "vite build && cp -r public/* dist/",
     "build:beta": "vite build --mode beta",
     "build:dev": "vite build --mode development",
     "build:app": "vite build --mode app",
