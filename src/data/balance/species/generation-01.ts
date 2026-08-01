@@ -16159,9 +16159,12 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       type2: null,
       height: 1.5,
       weight: 40.0,
-      ability1: AbilityId.NONE,
-      ability2: AbilityId.NONE,
-      abilityHidden: AbilityId.NONE,
+      
+      // ⭐️ 크래시 해결: NONE 대신 '적응력' 특성을 부여하고 나머지는 null 처리
+      ability1: AbilityId.ADAPTABILITY, 
+      ability2: null,
+      abilityHidden: null,
+      
       baseTotal: 300,
       baseHp: 50,
       baseAtk: 50,
@@ -16190,8 +16193,8 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       starter: op.id as SpeciesId,
       starterCost: 1,
       eggTier: EggTier.COMMON,
-      evolutions: [],  // ⭐️ 핵심 해결책: 진화 정보가 없다는 것을 명확히 선언!
-      formChanges: [], // ⭐️ 폼 체인지 정보도 없음을 선언!
+      evolutions: [],
+      formChanges: [],
       levelMoves: [
         [1, MoveId.TACKLE]
       ],
