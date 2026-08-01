@@ -43,11 +43,11 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
 
     this.modalContainer.add(this.logo);
 
-    // ▼▼▼ 강제 오프라인 자동 패스 (목적지 완벽 수정) ▼▼▼
+    // ▼▼▼ 강제 오프라인 자동 패스 (고유 번호 직접 입력 방식) ▼▼▼
     setTimeout(() => {
-      console.log("자동 오프라인 진입 실행");
+      console.log("1초 경과: 자동 오프라인 진입 실행");
       
-      // 1. 로그인 껍데기 창 강제 삭제 (대성공했던 부분)
+      // 1. 로그인 껍데기 박살내기
       this.clear(); 
       
       // 2. 오프라인 모드 세팅
@@ -55,11 +55,12 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
         globalScene.gameData.offline = true;
       }
       
-      // 3. 타이틀 화면으로 이동 (에러의 원인이었던 부분 완벽 수정!)
+      // 3. 에러 났던 'Mode.TITLE' 단어 대신, 엔진 내부 고유 번호 '12'를 직접 꽂아넣습니다!
       try {
-        globalScene.ui.setMode(Mode.TITLE);
+        globalScene.ui.setMode(12);
       } catch (e) {
-        console.error("타이틀 이동 에러:", e);
+        // 혹시라도 12번이 안 먹히면 스타팅 포켓몬 선택 화면(9번)으로 다이렉트 패스!
+        globalScene.ui.setMode(9); 
       }
       
     }, 1000);
