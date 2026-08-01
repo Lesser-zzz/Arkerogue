@@ -16173,6 +16173,7 @@ for (const op of arknightsData) {
     // ▼▼▼ 이 줄들을 추가하여 메가진화/폼 데이터를 초기화합니다 ▼▼▼
     clonedSpecies.forms = []; // 메가진화나 다른 폼 데이터를 비움
     clonedSpecies.megaEvos = []; // 메가진화 트리거 제거
+    clonedSpecies.implemented = true;
     // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
   }
   
