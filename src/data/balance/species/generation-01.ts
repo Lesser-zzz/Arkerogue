@@ -16163,12 +16163,17 @@ for (const op of arknightsData) {
   clonedSpecies.speciesId = op.id as SpeciesId;
   clonedSpecies.name = op.name;
 
-  // 2. 원본 데이터의 폼 및 메가진화 잔재를 깨끗하게 초기화
+  // 2. 원본 데이터의 폼(Form) 및 메가진화 잔재를 깨끗하게 초기화 (더미 데이터 꼬임 방지)
   clonedSpecies.forms = [];
   clonedSpecies.megaEvos = [];
   clonedSpecies.implemented = true;
 
-  // 3. 개별 오퍼레이터 고유 스탯 및 도감 설명 커스텀
+  // 3. [핵심] 선택창 아이콘(pokemon_icons_1) 에러 및 메가리자몽 X 출력 방지
+  // 9001번 아이콘이 스프라이트 시트에 없으므로, 무조건 1번(이상해씨)의 아이콘을 빌려 쓰도록 강제합니다.
+  clonedSpecies.getIconAtlasKey = () => "pokemon_icons_1";
+  clonedSpecies.getIconId = () => "1";
+
+  // 4. 개별 오퍼레이터 고유 스탯 및 도감 설명 커스텀
   if (op.id === 9001) { // 아미야 (캐스터 컨셉: 특수공격 중심)
     clonedSpecies.baseStats = [70, 50, 50, 110, 80, 80];
     clonedSpecies.description = "로도스 아일랜드의 리더. 감정을 읽을 수 있는 특별한 능력이 있다.";
