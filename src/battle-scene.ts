@@ -2333,8 +2333,8 @@ export class BattleScene extends SceneBase {
     
     // ▼▼▼ [핵심] 명켓로그 보스 난입 (가로채기) ▼▼▼
     // 10층 단위(10, 20, 30...)이고, 야생 조우(fromArenaPool)일 경우
-    // % 10은 10층 % 1은 1층마다임. 테스트 위해서 1층마다로 해둡시다 일단.
-    if (waveIndex % 1 === 0 && fromArenaPool) {
+    // % 10은 10층 % 1은 1층마다임. 테스트 위해서 2층마다로 해둡시다 일단.
+    if (waveIndex % 2 === 0 && fromArenaPool) {
       // 바이옴, 진화단계 등 모든 엔진의 계산을 무시하고 강제로 아미야(9001) 객체를 던져줍니다!
       return speciesDataRegistry.getSpecies(9001 as SpeciesId);
     }
