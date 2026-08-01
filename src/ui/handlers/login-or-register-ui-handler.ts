@@ -43,26 +43,16 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
 
     this.modalContainer.add(this.logo);
 
-    // ▼▼▼ 강제 오프라인 자동 패스 (고유 번호 직접 입력 방식) ▼▼▼
+    // ▼▼▼ 엔진 내부 취소(B버튼) 시그널 강제 전송 ▼▼▼
     setTimeout(() => {
-      console.log("1초 경과: 자동 오프라인 진입 실행");
-      
-      // 1. 로그인 껍데기 박살내기
-      this.clear(); 
-      
-      // 2. 오프라인 모드 세팅
-      if (globalScene.gameData) {
-        globalScene.gameData.offline = true;
-      }
-      
-      // 3. 에러 났던 'Mode.TITLE' 단어 대신, 엔진 내부 고유 번호 '12'를 직접 꽂아넣습니다!
+      console.log("1초 경과: 강제 B버튼(오프라인 진입) 시그널 전송!");
       try {
-        globalScene.ui.setMode(12);
+        // 포켓로그 엔진 내부에서 1번은 'Button.CANCEL(취소/뒤로가기)'을 의미합니다.
+        // 키보드가 먹통이어도, 엔진 심장부에 직접 취소 버튼을 눌렀다고 명령을 내립니다!
+        this.processInput(1); 
       } catch (e) {
-        // 혹시라도 12번이 안 먹히면 스타팅 포켓몬 선택 화면(9번)으로 다이렉트 패스!
-        globalScene.ui.setMode(9); 
+        console.error("시그널 전송 실패:", e);
       }
-      
     }, 1000);
     // ▲▲▲ 삽입 끝 ▲▲▲
   }
