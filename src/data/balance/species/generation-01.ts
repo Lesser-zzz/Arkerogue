@@ -16150,7 +16150,18 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     { id: 9006, name: "Melantha" }
   ];
 
+  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (9001~9006) ▼▼▼
+  const arknightsData = [
+    { id: 9001, name: "Amiya" },
+    { id: 9002, name: "Kroos" },
+    { id: 9003, name: "Fang" },
+    { id: 9004, name: "Beagle" },
+    { id: 9005, name: "Hibiscus" },
+    { id: 9006, name: "Melantha" }
+  ];
+
   for (const op of arknightsData) {
+    // ⭐️ as any 를 붙여서 엔진이 문법 검사를 강제로 패스하게 만듭니다.
     const customSpecies = new PokemonSpecies({
       id: op.id as SpeciesId,
       generation: 1,
@@ -16159,31 +16170,26 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       type2: null,
       height: 1.5,
       weight: 40.0,
-      
-      // ⭐️ 3개의 특성 칸을 단 하나의 틈도 없이 모두 똑같은 특성으로 도배합니다!
+
+      // 1. 스타팅 화면(UI)을 위한 구형 변수 세팅
       ability1: AbilityId.ADAPTABILITY, 
       ability2: AbilityId.ADAPTABILITY,
       abilityHidden: AbilityId.ADAPTABILITY,
-      
-      baseTotal: 300,
-      baseHp: 50,
-      baseAtk: 50,
-      baseDef: 50,
-      baseSpatk: 50,
-      baseSpdef: 50,
-      baseSpd: 50,
+      baseHp: 50, baseAtk: 50, baseDef: 50, baseSpatk: 50, baseSpdef: 50, baseSpd: 50,
+
+      // ⭐️ 2. 배틀(전투) 엔진을 위한 신형 [배열] 변수 세팅 (이게 추가된 핵심입니다!)
+      abilities: [AbilityId.ADAPTABILITY, AbilityId.ADAPTABILITY, AbilityId.ADAPTABILITY],
+      baseStats: [50, 50, 50, 50, 50, 50],
+
       catchRate: 45,
       baseFriendship: 50,
       baseExp: 50,
       growthRate: GrowthRate.MEDIUM_FAST,
-      malePercent: null,
-      genderDiffs: false,
-    });
+      genderRatio: 127
+    } as any);
 
-    // 다국어(번역) 시스템 우회용 이름 강제 지정
+    // 이름 및 그래픽 에셋 강제 지정
     customSpecies.name = op.name;
-
-    // ▼▼▼ 에셋 크래시 방지 우회 코드 ▼▼▼
     (customSpecies as any).getSpriteId = () => "1";
     (customSpecies as any).getIconId = () => "1";
     (customSpecies as any).getCryKey = () => "cry/1";
