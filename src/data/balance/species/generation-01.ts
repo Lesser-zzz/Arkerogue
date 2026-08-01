@@ -16173,14 +16173,14 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       baseFriendship: 50,
       baseExp: 50,
       growthRate: GrowthRate.MEDIUM_FAST,
-      malePercent: null, // ⭐️ 무한 로딩 방지 (성별 없음)
-      genderDiffs: false, 
+      malePercent: null,
+      genderDiffs: false,
     });
 
     // 다국어(번역) 시스템 우회용 이름 강제 지정
     customSpecies.name = op.name;
 
-    // ▼▼▼ 에셋 크래시 방지 우회 코드 (문법 에러 원천 차단 적용) ▼▼▼
+    // ▼▼▼ 에셋 크래시 방지 우회 코드 ▼▼▼
     (customSpecies as any).getSpriteId = () => "1";
     (customSpecies as any).getIconId = () => "1";
     (customSpecies as any).getCryKey = () => "cry/1";
@@ -16190,6 +16190,8 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       starter: op.id as SpeciesId,
       starterCost: 1,
       eggTier: EggTier.COMMON,
+      evolutions: [],  // ⭐️ 핵심 해결책: 진화 정보가 없다는 것을 명확히 선언!
+      formChanges: [], // ⭐️ 폼 체인지 정보도 없음을 선언!
       levelMoves: [
         [1, MoveId.TACKLE]
       ],
