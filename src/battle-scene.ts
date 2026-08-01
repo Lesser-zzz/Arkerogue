@@ -2330,6 +2330,15 @@ export class BattleScene extends SceneBase {
     speciesFilter?: PokemonSpeciesFilter,
     filterAllEvolutions = false,
   ): PokemonSpecies {
+    
+    // ▼▼▼ [핵심] 명켓로그 보스 난입 (가로채기) ▼▼▼
+    // 10층 단위(10, 20, 30...)이고, 야생 조우(fromArenaPool)일 경우
+    if (waveIndex % 10 === 0 && fromArenaPool) {
+      // 바이옴, 진화단계 등 모든 엔진의 계산을 무시하고 강제로 아미야(9001) 객체를 던져줍니다!
+      return speciesDataRegistry.getSpecies(9001 as SpeciesId);
+    }
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
     if (fromArenaPool) {
       return this.arena.randomSpecies(waveIndex, level, 0, getPartyLuckValue(this.party));
     }
@@ -2356,6 +2365,7 @@ export class BattleScene extends SceneBase {
     return randSeedItem(filteredSpecies);
   }
 
+  
   generateRandomBiome(waveIndex: number): BiomeId {
     const relWave = waveIndex % 250;
     const biomes = Object.values(BiomeId).filter(b => b !== BiomeId.TOWN && b !== BiomeId.END);
