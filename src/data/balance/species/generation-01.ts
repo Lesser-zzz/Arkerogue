@@ -16139,7 +16139,7 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     ],
   };
 
-  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (9001~9006) ▼▼▼
+  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (이상해씨 완벽 복제 방식) ▼▼▼
   const arknightsData = [
     { id: 9001, name: "Amiya" },
     { id: 9002, name: "Kroos" },
@@ -16150,55 +16150,30 @@ export function initGenerationOne(): SpeciesDataMapConfig {
   ];
 
   for (const op of arknightsData) {
-    const customSpecies = new PokemonSpecies({
-      id: op.id as SpeciesId,
-      generation: 1,
-      category: "Operator",
-      type1: PokemonType.NORMAL,
-      type2: null,
-      height: 1.5,
-      weight: 40.0,
+    // 1. 1번 포켓몬(이상해씨)의 원본 데이터를 완벽하게 복제 (에러 원천 차단)
+    const baseData = generationOneSpeciesData[1 as SpeciesId] as any;
+    
+    // 객체의 숨겨진 기능(Getter 등)까지 모두 유지하기 위해 프로토타입 복제 사용
+    const clonedSpecies = Object.assign(
+      Object.create(Object.getPrototypeOf(baseData.species)), 
+      baseData.species
+    );
 
-      // 1, 2, 숨겨진 특성 모두 부여
-      ability1: AbilityId.ADAPTABILITY, 
-      ability2: AbilityId.ADAPTABILITY,
-      abilityHidden: AbilityId.ADAPTABILITY,
-      
-      // ⭐️ [진짜 원인 해결] 최근 엔진에 강제된 '패시브(Passive)' 특성을 추가합니다!
-      passive: AbilityId.ADAPTABILITY, 
+    // 2. 명일방주 오퍼레이터에 맞게 최소한의 정보만 덮어쓰기
+    clonedSpecies.id = op.id as SpeciesId;
+    clonedSpecies.name = op.name;
+    clonedSpecies.category = "Operator";
 
-      baseTotal: 300,
-      baseHp: 50,
-      baseAtk: 50,
-      baseDef: 50,
-      baseSpatk: 50,
-      baseSpdef: 50,
-      baseSpd: 50,
-      catchRate: 45,
-      baseFriendship: 50,
-      baseExp: 50,
-      growthRate: GrowthRate.MEDIUM_FAST,
-      malePercent: null,
-      genderDiffs: false,
-    } as any);
+    // 3. 에셋 크래시 방지용 껍데기 씌우기 (이상해씨 외형 사용)
+    (clonedSpecies as any).getSpriteId = () => "1";
+    (clonedSpecies as any).getIconId = () => "1";
+    (clonedSpecies as any).getCryKey = () => "cry/1";
 
-    // 이름 및 그래픽 에셋 우회 지정
-    customSpecies.name = op.name;
-    (customSpecies as any).getSpriteId = () => "1";
-    (customSpecies as any).getIconId = () => "1";
-    (customSpecies as any).getCryKey = () => "cry/1";
-
+    // 4. 엔진에 등록 (기존 이상해씨의 기술, 특성, 스탯 100% 유지)
     generationOneSpeciesData[op.id as SpeciesId] = {
-      species: customSpecies,
-      starter: op.id as SpeciesId,
-      starterCost: 1,
-      eggTier: EggTier.COMMON,
-      evolutions: [],
-      formChanges: [],
-      levelMoves: [
-        [1, MoveId.TACKLE]
-      ],
-      tms: []
+      ...baseData,
+      species: clonedSpecies,
+      starter: op.id as SpeciesId
     };
   }
   // ▲▲▲ 삽입 끝 ▲▲▲
