@@ -51,6 +51,24 @@ export class AttemptCapturePhase extends PokemonPhase {
       return this.end();
     }
 
+    // ▼▼▼ [핵심] 명켓로그: 일반 몬스터 포획(채용) 원천 차단 ▼▼▼
+    // 타겟의 도감 번호가 9000번 미만(일반 포켓몬)이라면 몬스터볼을 튕겨냅니다.
+    if (pokemon.species.speciesId < 9000) {
+      globalScene.ui.showText("일반 몬스터에게는 인사 서류(포켓볼)를 내밀 수 없습니다!", null, () => {
+        this.end(); // 턴 종료 (볼은 소모되지 않음!)
+      });
+      return;
+    }
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+    const substitute = pokemon.getTag(SubstituteTag);
+    if (substitute) {
+      substitute.sprite.setVisible(false);
+    }
+
+    // 볼 개수가 깎이는 로직 (이 위에서 return 했으므로 볼이 보존됨)
+    globalScene.pokeballCounts[this.pokeballType]--;
+
     const substitute = pokemon.getTag(SubstituteTag);
     if (substitute) {
       substitute.sprite.setVisible(false);
