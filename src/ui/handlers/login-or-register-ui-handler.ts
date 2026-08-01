@@ -51,15 +51,24 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
       padding: { x: 10, y: 5 }
     }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
+    // ▼▼▼ 강제 오프라인 진입 버튼 (위치 및 우선순위 완벽 수정) ▼▼▼
+    const offlineButton = globalScene.add.text(160, 160, '[ Play Offline 강제 진입 ]', {
+      fontSize: '12px',
+      color: '#ffffff',
+      backgroundColor: '#ff0000',
+      padding: { x: 5, y: 5 }
+    })
+    .setOrigin(0.5)
+    .setDepth(99999) // ⭐️ 모든 로그인 UI, 검은 화면을 뚫고 무조건 맨 위로 올라오게 만듭니다!
+    .setScrollFactor(0) // 카메라가 움직여도 이 위치에 고정
+    .setInteractive({ useHandCursor: true });
+
     offlineButton.on('pointerdown', () => {
       console.log("강제 오프라인 진입 시도");
-      // 현재 로그인 창 UI를 강제로 닫기
       this.clear(); 
-      // 게임 엔진에게 오프라인 모드로 세팅하라고 강제 명령
       if (globalScene.gameData) {
         globalScene.gameData.offline = true;
       }
-      // 스타팅 포켓몬(오퍼레이터) 선택 메뉴로 즉시 화면 전환
       globalScene.ui.setMode(globalScene.ui.modes.MODIFIER_SELECT); 
     });
     // ▲▲▲ 삽입 끝 ▲▲▲
