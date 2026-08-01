@@ -1194,6 +1194,29 @@ export class StarterSelectUiHandler extends MessageUiHandler {
 
     this.allowTera = Object.hasOwn(globalScene.gameData.achvUnlocks, achvs.TERASTALLIZE.id);
 
+    // ▼▼▼ 명일방주 코어 루프: 아미야 단독 스타트 강제화 ▼▼▼
+    if (globalScene.gameData && globalScene.gameData.dexData) {
+      // 1. 기존 포켓몬들 전부 압수 (9001번 제외하고 포획/조우 기록 삭제)
+      for (const key in globalScene.gameData.dexData) {
+        if (key !== "9001") { 
+          globalScene.gameData.dexData[key].caughtCount = 0;
+          globalScene.gameData.dexData[key].caughtAttr = 0n;
+        }
+      }
+
+      // 2. 아미야(9001) 강제 지급 및 6V(올스탯 31) 혜택
+      if (!globalScene.gameData.dexData[9001]) {
+        globalScene.gameData.dexData[9001] = {} as any;
+      }
+      globalScene.gameData.dexData[9001].seenCount = 1;
+      globalScene.gameData.dexData[9001].caughtCount = 1;
+      globalScene.gameData.dexData[9001].caughtAttr = 1n; 
+      globalScene.gameData.dexData[9001].seenAttr = 1n;
+      globalScene.gameData.dexData[9001].ivs = [31, 31, 31, 31, 31, 31];
+      globalScene.gameData.dexData[9001].nature = 0;
+    }
+    // ▲▲▲ 삽입 끝 ▲▲▲
+
     if (args.length > 0 && args[0] instanceof Function) {
       super.show(args);
       this.starterSelectCallback = args[0] as StarterSelectCallback;
