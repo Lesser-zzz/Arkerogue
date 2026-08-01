@@ -16139,45 +16139,31 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     ],
   };
 
-  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (이상해씨 완벽 복제 방식) ▼▼▼
-  const arknightsData = [
-    { id: 9001, name: "Amiya" },
-    { id: 9002, name: "Kroos" },
-    { id: 9003, name: "Fang" },
-    { id: 9004, name: "Beagle" },
-    { id: 9005, name: "Hibiscus" },
-    { id: 9006, name: "Melantha" }
-  ];
+  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (복제 방식) ▼▼▼
+const arknightsData = [
+  { id: 9001, name: "Amiya" },
+  { id: 9002, name: "Kroos" },
+  { id: 9003, name: "Fang" },
+  { id: 9004, name: "Beagle" },
+  { id: 9005, name: "Hibiscus" },
+  { id: 9006, name: "Melantha" }
+];
 
-  for (const op of arknightsData) {
-    // 1. 1번 포켓몬(이상해씨)의 원본 데이터를 완벽하게 복제 (에러 원천 차단)
-    const baseData = generationOneSpeciesData[1 as SpeciesId] as any;
-    
-    // 객체의 숨겨진 기능(Getter 등)까지 모두 유지하기 위해 프로토타입 복제 사용
-    const clonedSpecies = Object.assign(
-      Object.create(Object.getPrototypeOf(baseData.species)), 
-      baseData.species
-    );
+for (const op of arknightsData) {
+  // 1. 1번 포켓몬(이상해씨)의 원본 데이터를 완벽하게 복제
+  const baseData = generationOneSpeciesData[1 as SpeciesId];
 
-    // 2. 명일방주 오퍼레이터에 맞게 최소한의 정보만 덮어쓰기
-    clonedSpecies.id = op.id as SpeciesId;
-    clonedSpecies.name = op.name;
-    clonedSpecies.category = "Operator";
-
-    // 3. 에셋 크래시 방지용 껍데기 씌우기 (이상해씨 외형 사용)
-    (clonedSpecies as any).getSpriteId = () => "1";
-    (clonedSpecies as any).getIconId = () => "1";
-    (clonedSpecies as any).getCryKey = () => "cry/1";
-
-    // 4. 엔진에 등록 (기존 이상해씨의 기술, 특성, 스탯 100% 유지)
-    generationOneSpeciesData[op.id as SpeciesId] = {
-      ...baseData,
-      species: clonedSpecies,
-      starter: op.id as SpeciesId
-    };
-  }
-  // ▲▲▲ 삽입 끝 ▲▲▲
-
+  // 2. 복제한 데이터에 새로운 ID와 이름 부여
+  generationOneSpeciesData[op.id as SpeciesId] = {
+    ...baseData,
+    species: Object.assign(Object.create(Object.getPrototypeOf(baseData.species)), baseData.species),
+    starter: op.id as SpeciesId
+  };
+  
+  generationOneSpeciesData[op.id as SpeciesId].species.speciesId = op.id as SpeciesId;
+  generationOneSpeciesData[op.id as SpeciesId].species.name = op.name;
+}
+// ▲▲▲ 삽입 끝 ▲▲▲
   
   return generationOneSpeciesData;
 }
