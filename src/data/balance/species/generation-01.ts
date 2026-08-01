@@ -16160,10 +16160,10 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       height: 1.5,
       weight: 40.0,
       
-      // ⭐️ 핵심 수정: null을 빼고 다시 AbilityId.NONE 으로 복구했습니다!
+      // ⭐️ 3개의 특성 칸을 단 하나의 틈도 없이 모두 똑같은 특성으로 도배합니다!
       ability1: AbilityId.ADAPTABILITY, 
-      ability2: AbilityId.NONE,
-      abilityHidden: AbilityId.NONE,
+      ability2: AbilityId.ADAPTABILITY,
+      abilityHidden: AbilityId.ADAPTABILITY,
       
       baseTotal: 300,
       baseHp: 50,
