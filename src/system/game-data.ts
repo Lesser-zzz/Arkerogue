@@ -1794,12 +1794,23 @@ export class GameData {
       }
     }
 
-    // Unlock ability
-    if (speciesDataRegistry.isStarter(species.speciesId)) {
+    // Unlock ability 안전장치도 추가해서 9000위에도 스타팅가능하게
+    if (speciesDataRegistry.isStarter(species.speciesId) || species.speciesId >= 9000) {
+      this.starterData[species.speciesId] ??= {
+        moveset: null,
+        eggMoves: 0,
+        candyCount: 0,
+        friendship: 0,
+        abilityAttr: AbilityAttr.ABILITY_1,
+        passiveAttr: 0,
+        valueReduction: 0,
+        classicWinCount: 0,
+      };
       this.starterData[species.speciesId].abilityAttr |=
         pokemon.abilityIndex !== 1 || pokemon.species.ability2 ? 1 << pokemon.abilityIndex : AbilityAttr.ABILITY_HIDDEN;
     }
 
+    
     // Unlock nature
     dexEntry.natureAttr |= 1 << (pokemon.nature + 1);
 
@@ -1858,7 +1869,7 @@ export class GameData {
       );
     };
 
-    if (!newCatch || !speciesDataRegistry.isStarter(species.speciesId)) {
+    if (!newCatch || (!speciesDataRegistry.isStarter(species.speciesId) && species.speciesId < 9000)) {
       return await checkPrevolution(false);
     }
     // TODO: This will skip unlocking a pre-evolution if the player catches an evolved form that is itself a starter.
