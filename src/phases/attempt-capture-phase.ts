@@ -68,14 +68,7 @@ export class AttemptCapturePhase extends PokemonPhase {
 
     // 볼 개수가 깎이는 로직 (이 위에서 return 했으므로 볼이 보존됨)
     globalScene.pokeballCounts[this.pokeballType]--;
-
-    const substitute = pokemon.getTag(SubstituteTag);
-    if (substitute) {
-      substitute.sprite.setVisible(false);
-    }
-
-    globalScene.pokeballCounts[this.pokeballType]--;
-
+    
     this.originalY = pokemon.y;
 
     const _3m = 3 * pokemon.getMaxHp();
