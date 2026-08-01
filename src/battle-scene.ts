@@ -2335,10 +2335,15 @@ export class BattleScene extends SceneBase {
     // 10층 단위(10, 20, 30...)이고, 야생 조우(fromArenaPool)일 경우
     // % 10은 10층 % 1은 1층마다임. 테스트 위해서 2층마다로 해둡시다 일단.
     if (waveIndex % 2 === 0 && fromArenaPool) {
-      // 바이옴, 진화단계 등 모든 엔진의 계산을 무시하고 강제로 아미야(9001) 객체를 던져줍니다!
-      return speciesDataRegistry.getSpecies(9001 as SpeciesId);
+      // 명일방주 오퍼레이터들의 ID 리스트 (추후 9002, 9003 등을 여기 계속 추가하면 됩니다!)
+      const arknightsBossPool = [9001, 9002, 9003, 9004, 9005, 9006];
+      
+      // 배열 안에서 무작위로 하나를 선택
+      const randomOpId = arknightsBossPool[Math.floor(Math.random() * arknightsBossPool.length)];
+      
+      return speciesDataRegistry.getSpecies(randomOpId as SpeciesId);
     }
-    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
     if (fromArenaPool) {
       return this.arena.randomSpecies(waveIndex, level, 0, getPartyLuckValue(this.party));
