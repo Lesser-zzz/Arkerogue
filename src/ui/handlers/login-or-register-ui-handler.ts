@@ -42,6 +42,25 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
       .setOrigin(0);
 
     this.modalContainer.add(this.logo);
+
+    // ▼▼▼ 강제 오프라인 진입 버튼 추가 ▼▼▼
+    const offlineButton = this.scene.add.text(this.scene.scale.width / 2, this.scene.scale.height - 50, '[ Play Offline 강제 진입 ]', {
+      fontSize: '18px',
+      color: '#ffffff',
+      backgroundColor: '#ff0000',
+      padding: { x: 10, y: 5 }
+    }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+
+    offlineButton.on('pointerdown', () => {
+      console.log("강제 오프라인 진입 시도");
+      // 현재 로그인 창 UI를 강제로 닫기
+      this.clear(); 
+      // 게임 엔진에게 오프라인 모드로 세팅하라고 강제 명령
+      this.scene.gameData.offline = true;
+      // 스타팅 포켓몬(오퍼레이터) 선택 메뉴로 즉시 화면 전환
+      this.scene.ui.setMode(this.scene.ui.modes.MODIFIER_SELECT); 
+    });
+    // ▲▲▲ 삽입 끝 ▲▲▲
   }
 
   public override show(args: [ModalConfig, ...any[]]): boolean {
