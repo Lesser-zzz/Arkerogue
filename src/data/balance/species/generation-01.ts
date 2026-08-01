@@ -16150,7 +16150,6 @@ export function initGenerationOne(): SpeciesDataMapConfig {
   ];
 
   for (const op of arknightsData) {
-    // ⭐️ as any 를 붙여서 엔진이 문법 검사를 강제로 패스하게 만듭니다.
     const customSpecies = new PokemonSpecies({
       id: op.id as SpeciesId,
       generation: 1,
@@ -16160,24 +16159,30 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       height: 1.5,
       weight: 40.0,
 
-      // 1. 스타팅 화면(UI)을 위한 구형 변수 세팅
+      // 1, 2, 숨겨진 특성 모두 부여
       ability1: AbilityId.ADAPTABILITY, 
       ability2: AbilityId.ADAPTABILITY,
       abilityHidden: AbilityId.ADAPTABILITY,
-      baseHp: 50, baseAtk: 50, baseDef: 50, baseSpatk: 50, baseSpdef: 50, baseSpd: 50,
+      
+      // ⭐️ [진짜 원인 해결] 최근 엔진에 강제된 '패시브(Passive)' 특성을 추가합니다!
+      passive: AbilityId.ADAPTABILITY, 
 
-      // ⭐️ 2. 배틀(전투) 엔진을 위한 신형 [배열] 변수 세팅 (이게 추가된 핵심입니다!)
-      abilities: [AbilityId.ADAPTABILITY, AbilityId.ADAPTABILITY, AbilityId.ADAPTABILITY],
-      baseStats: [50, 50, 50, 50, 50, 50],
-
+      baseTotal: 300,
+      baseHp: 50,
+      baseAtk: 50,
+      baseDef: 50,
+      baseSpatk: 50,
+      baseSpdef: 50,
+      baseSpd: 50,
       catchRate: 45,
       baseFriendship: 50,
       baseExp: 50,
       growthRate: GrowthRate.MEDIUM_FAST,
-      genderRatio: 127
+      malePercent: null,
+      genderDiffs: false,
     } as any);
 
-    // 이름 및 그래픽 에셋 강제 지정
+    // 이름 및 그래픽 에셋 우회 지정
     customSpecies.name = op.name;
     (customSpecies as any).getSpriteId = () => "1";
     (customSpecies as any).getIconId = () => "1";
@@ -16197,6 +16202,7 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     };
   }
   // ▲▲▲ 삽입 끝 ▲▲▲
+
   
   return generationOneSpeciesData;
 }
