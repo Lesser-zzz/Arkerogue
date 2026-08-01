@@ -16139,7 +16139,7 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     ],
   };
 
-  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (복제 방식) ▼▼▼
+  // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (복제 + 커스텀 방식) ▼▼▼
 const arknightsData = [
   { id: 9001, name: "Amiya" },
   { id: 9002, name: "Kroos" },
@@ -16150,7 +16150,7 @@ const arknightsData = [
 ];
 
 for (const op of arknightsData) {
-  // 1. 1번 포켓몬(이상해씨)의 원본 데이터를 완벽하게 복제
+  // 1. 1번 포켓몬(이상해씨) 원본 데이터 완벽 복제
   const baseData = generationOneSpeciesData[1 as SpeciesId];
 
   // 2. 복제한 데이터에 새로운 ID와 이름 부여
@@ -16159,9 +16159,19 @@ for (const op of arknightsData) {
     species: Object.assign(Object.create(Object.getPrototypeOf(baseData.species)), baseData.species),
     starter: op.id as SpeciesId
   };
+
+  const clonedSpecies = generationOneSpeciesData[op.id as SpeciesId].species;
+  clonedSpecies.speciesId = op.id as SpeciesId;
+  clonedSpecies.name = op.name;
+
+  // 3. 개별 오퍼레이터 데이터 커스텀 (스탯/설명 덮어쓰기)
+  if (op.id === 9001) { // 아미야 전용 스탯 설정
+    // [체력, 공격, 방어, 특수공격, 특수방어, 스피드] -> 캐스터니까 특공을 높게 설정
+    clonedSpecies.baseStats = [70, 50, 50, 110, 80, 80];
+    clonedSpecies.description = "로도스 아일랜드의 리더. 감정을 읽을 수 있는 특별한 능력이 있다.";
+  }
   
-  generationOneSpeciesData[op.id as SpeciesId].species.speciesId = op.id as SpeciesId;
-  generationOneSpeciesData[op.id as SpeciesId].species.name = op.name;
+  // 추후 크루스, 팡 등도 if (op.id === 9002) { ... } 형태로 바로 아래에 이어서 추가하시면 됩니다!
 }
 // ▲▲▲ 삽입 끝 ▲▲▲
   
