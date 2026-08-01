@@ -237,7 +237,8 @@ export class GameData {
     let dataValidated = true;
 
     for (const speciesId of speciesDataRegistry.getAllStarters()) {
-      if (defaultStarterSpecies.includes(speciesId)) {
+      // 9000번대 커스텀 오퍼레이터(명일방주 오퍼레이터)는 무결성 검사 예외 처리
+      if (defaultStarterSpecies.includes(speciesId) || speciesId >= 9000) {
         continue;
       }
 
