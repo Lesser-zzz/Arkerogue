@@ -1661,13 +1661,20 @@ export class GameData {
     const starterData: StarterData = {};
 
     const starterSpeciesIds = speciesDataRegistry.getAllStarters();
+    // 9000번대 커스텀 오퍼레이터들도 스타팅 목록에 강제 추가
+    for (let id = 9001; id <= 9010; id++) {
+      if (!starterSpeciesIds.includes(id as SpeciesId)) {
+        starterSpeciesIds.push(id as SpeciesId);
+      }
+    }
+
     for (const speciesId of starterSpeciesIds) {
       starterData[speciesId] = {
         moveset: null,
         eggMoves: 0,
         candyCount: 0,
         friendship: 0,
-        abilityAttr: defaultStarterSpecies.includes(speciesId) ? AbilityAttr.ABILITY_1 : 0,
+        abilityAttr: defaultStarterSpecies.includes(speciesId) || speciesId >= 9000 ? AbilityAttr.ABILITY_1 : 0,
         passiveAttr: 0,
         valueReduction: 0,
         classicWinCount: 0,
