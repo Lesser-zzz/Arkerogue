@@ -43,26 +43,26 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
 
     this.modalContainer.add(this.logo);
 
-    // ▼▼▼ 강제 오프라인 '자동' 진입 (버튼 클릭조차 필요 없음!) ▼▼▼
+    // ▼▼▼ 강제 오프라인 자동 패스 (목적지 완벽 수정) ▼▼▼
     setTimeout(() => {
-      console.log("1초 경과: 자동 오프라인 진입 실행");
+      console.log("자동 오프라인 진입 실행");
       
-      // 1. 로그인 껍데기 창 강제 삭제
+      // 1. 로그인 껍데기 창 강제 삭제 (대성공했던 부분)
       this.clear(); 
       
-      // 2. 엔진을 오프라인 모드로 강제 전환
+      // 2. 오프라인 모드 세팅
       if (globalScene.gameData) {
         globalScene.gameData.offline = true;
       }
       
-      // 3. 타이틀 화면(또는 스타팅 선택 창)으로 자동 이동
+      // 3. 타이틀 화면으로 이동 (에러의 원인이었던 부분 완벽 수정!)
       try {
-        globalScene.ui.setMode(globalScene.ui.modes.TITLE || globalScene.ui.modes.STARTER_SELECT);
+        globalScene.ui.setMode(Mode.TITLE);
       } catch (e) {
-        console.error("화면 전환 에러 우회 완료:", e);
+        console.error("타이틀 이동 에러:", e);
       }
       
-    }, 1000); // 1000 = 1초 대기 후 실행
+    }, 1000);
     // ▲▲▲ 삽입 끝 ▲▲▲
   }
 
