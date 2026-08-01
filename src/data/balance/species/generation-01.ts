@@ -16160,10 +16160,10 @@ export function initGenerationOne(): SpeciesDataMapConfig {
       height: 1.5,
       weight: 40.0,
       
-      // ⭐️ 크래시 해결: NONE 대신 '적응력' 특성을 부여하고 나머지는 null 처리
+      // ⭐️ 핵심 수정: null을 빼고 다시 AbilityId.NONE 으로 복구했습니다!
       ability1: AbilityId.ADAPTABILITY, 
-      ability2: null,
-      abilityHidden: null,
+      ability2: AbilityId.NONE,
+      abilityHidden: AbilityId.NONE,
       
       baseTotal: 300,
       baseHp: 50,
