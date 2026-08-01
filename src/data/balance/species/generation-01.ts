@@ -16139,17 +16139,6 @@ export function initGenerationOne(): SpeciesDataMapConfig {
     ],
   };
 
-
- // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (9001~9006) ▼▼▼
-  const arknightsData = [
-    { id: 9001, name: "Amiya" },
-    { id: 9002, name: "Kroos" },
-    { id: 9003, name: "Fang" },
-    { id: 9004, name: "Beagle" },
-    { id: 9005, name: "Hibiscus" },
-    { id: 9006, name: "Melantha" }
-  ];
-
   // ▼▼▼ 명일방주 오퍼레이터 6인 일괄 추가 (9001~9006) ▼▼▼
   const arknightsData = [
     { id: 9001, name: "Amiya" },
