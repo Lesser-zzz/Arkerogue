@@ -57,10 +57,10 @@ export class LoginOrRegisterUiHandler extends LoginRegisterInfoContainerUiHandle
       
       // 3. 에러 났던 'Mode.TITLE' 단어 대신, 엔진 내부 고유 번호 '12'를 직접 꽂아넣습니다!
       try {
-        globalScene.ui.setMode(12);
+        globalScene.ui.setMode(9);
       } catch (e) {
         // 혹시라도 12번이 안 먹히면 스타팅 포켓몬 선택 화면(9번)으로 다이렉트 패스!
-        globalScene.ui.setMode(9); 
+        globalScene.ui.setMode(12); 
       }
       
     }, 1000);
