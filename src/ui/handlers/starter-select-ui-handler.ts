@@ -799,15 +799,7 @@ export class StarterSelectUiHandler extends MessageUiHandler {
     starterBoxContainer.add(this.cursorObj);
 
     // TODO: Apply the same logic done in the pokedex to only have 81 containers whose sprites are cycled
-    const allStarterIds = speciesDataRegistry.getAllStarters();
-    // ▼▼▼ 9000번대(명일방주) UI 컨테이너 강제 생성 ▼▼▼
-    for (let id = 9001; id <= 9010; id++) {
-      if (!allStarterIds.includes(id as SpeciesId)) {
-        allStarterIds.push(id as SpeciesId);
-      }
-    }
-    
-    for (const speciesId of allStarterIds) {
+    for (const speciesId of speciesDataRegistry.getAllStarters()) {
       starterSpecies.push(speciesId);
       this.speciesLoaded.set(speciesId, false);
       const species = speciesDataRegistry.getSpecies(speciesId);
@@ -3197,8 +3189,8 @@ export class StarterSelectUiHandler extends MessageUiHandler {
       const caughtAttr = dexEntry?.caughtAttr ?? BigInt(0);
       const isStarterProgressable = Object.hasOwn(speciesEggMoves, container.species.speciesId);
 
-      // Gen filter (▼ 9000번대 커스텀 캐릭터는 세대 필터를 무시하고 무조건 화면에 표시되게 프리패스)
-      const fitsGen = container.species.speciesId >= 9000 || this.filterBar.getVals(DropDownColumn.GEN).includes(container.species.generation);
+      // Gen filter
+      const fitsGen = this.filterBar.getVals(DropDownColumn.GEN).includes(container.species.generation);
       // Type filter
       const fitsType = this.filterBar
         .getVals(DropDownColumn.TYPES)
