@@ -1198,7 +1198,7 @@ export class StarterSelectUiHandler extends MessageUiHandler {
     if (globalScene.gameData && globalScene.gameData.dexData) {
       // 1. 기존 포켓몬들 전부 압수 (9001번 제외하고 포획/조우 기록 삭제)
       for (const key in globalScene.gameData.dexData) {
-        if (key !== "9001") { 
+        if (parseInt(key) < 9000) { // <--- 이렇게 변경!
           globalScene.gameData.dexData[key].caughtCount = 0;
           globalScene.gameData.dexData[key].caughtAttr = 0n;
         }
