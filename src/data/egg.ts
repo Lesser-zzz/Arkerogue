@@ -365,6 +365,9 @@ export class Egg {
   }
 
   private getEggTierDefaultHatchWaves(eggTier?: EggTier): number {
+    // ▼▼▼ 명켓로그 디버그 치트: 모든 알 1웨이브(전투 1번) 만에 부화! ▼▼▼
+    return 1;
+    // ▲▲▲ 삽입 끝 ▲▲▲ 이미 이 메서드 리턴 1 했으니 아래는 무시댐
     if (this._species === SpeciesId.PHIONE || this._species === SpeciesId.MANAPHY) {
       return HATCH_WAVES_MANAPHY_EGG;
     }
