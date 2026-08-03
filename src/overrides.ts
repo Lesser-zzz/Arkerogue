@@ -137,7 +137,8 @@ class DefaultOverrides {
   readonly WAIVE_ROLL_FEE_OVERRIDE: boolean = false;
   readonly FREE_CANDY_UPGRADE_OVERRIDE: boolean = false;
   readonly POKEBALL_OVERRIDE: { active: boolean; pokeballs: PokeballCounts } = {
-    active: false,
+    //이거 true여야 켜지지 바보야
+    active: true,
     //포켓볼 치트임 ㅇㅇ
     pokeballs: {
       [PokeballType.POKEBALL]: 5,
