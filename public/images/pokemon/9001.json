@@ -4,7 +4,7 @@
       "image": "9001.png",
       "format": "RGBA8888",
       "size": {
-        "w": 181, 
+        "w": 724, 
         "h": 181
       },
       "scale": 1,
@@ -23,7 +23,23 @@
           "trimmed": false,
           "sourceSize": { "w": 181, "h": 181 },
           "spriteSourceSize": { "x": 0, "y": 0, "w": 181, "h": 181 },
-          "frame": { "x": 0, "y": 0, "w": 181, "h": 181 }
+          "frame": { "x": 181, "y": 0, "w": 181, "h": 181 }
+        },
+        {
+          "filename": "0003.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": { "w": 181, "h": 181 },
+          "spriteSourceSize": { "x": 0, "y": 0, "w": 181, "h": 181 },
+          "frame": { "x": 362, "y": 0, "w": 181, "h": 181 }
+        },
+        {
+          "filename": "0004.png",
+          "rotated": false,
+          "trimmed": false,
+          "sourceSize": { "w": 181, "h": 181 },
+          "spriteSourceSize": { "x": 0, "y": 0, "w": 181, "h": 181 },
+          "frame": { "x": 543, "y": 0, "w": 181, "h": 181 }
         }
       ]
     }
@@ -33,7 +49,7 @@
     "version": "1.0",
     "image": "9001.png",
     "format": "RGBA8888",
-    "size": { "w": 181, "h": 181 },
+    "size": { "w": 724, "h": 181 },
     "scale": "1"
   }
 }
