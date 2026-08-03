@@ -179,11 +179,12 @@ export class GameData {
     };
     this.achvUnlocks = {};
     this.voucherUnlocks = {};
+    // 시작시 뽑기 티켓. 디버그 위해서 99 채워둘거임
     this.voucherCounts = {
-      [VoucherType.REGULAR]: 0,
-      [VoucherType.PLUS]: 0,
-      [VoucherType.PREMIUM]: 0,
-      [VoucherType.GOLDEN]: 0,
+      [VoucherType.REGULAR]: 99,
+      [VoucherType.PLUS]: 99,
+      [VoucherType.PREMIUM]: 99,
+      [VoucherType.GOLDEN]: 99,
     };
     this.eggs = [];
     this.eggPity = [0, 0, 0, 0];
