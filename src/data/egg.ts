@@ -397,6 +397,14 @@ export class Egg {
     if (!globalScene) {
       return null;
     }
+
+    // ▼▼▼ 명일방주 헤드헌팅 전용 마개조 로직 (입구컷) ▼▼▼
+    const operatorPool = [9001, 9002, 9003, 9004, 9005, 9006]; // 아미야, 크루스, 팡 등 오퍼레이터 ID
+    const randomIndex = Math.floor(Math.random() * operatorPool.length);
+    return operatorPool[randomIndex] as SpeciesId; // 기존 로직 싹 무시하고 무조건 오퍼레이터 리턴!
+    // ▲▲▲ 삽입 끝 ▲▲▲
+
+    
     /**
      * Manaphy eggs have a 1/8 chance of being Manaphy and 7/8 chance of being Phione
      * Legendary eggs pulled from the legendary gacha have a 50% of being converted into
