@@ -1,45 +1,21 @@
 {
-  "textures": [
-    {
-      "image": "9001.png",
-      "format": "RGBA8888",
-      "size": {
-        "w": 181,
-        "h": 181
-      },
-      "scale": 1,
-      "frames": [
-        {
-          "filename": "0001.png",
-          "rotated": false,
-          "trimmed": false,
-          "sourceSize": {
-            "w": 181,
-            "h": 181
-          },
-          "spriteSourceSize": {
-            "x": 0,
-            "y": 0,
-            "w": 181,
-            "h": 181
-          },
-          "frame": {
-            "x": 0,
-            "y": 0,
-            "w": 181,
-            "h": 181
-          }
-        }
-      ]
-    }
-  ],
-  "animations": {
-    "pkmn__9001": [
-      "0001.png"
-    ]
-  },
-  "meta": {
-    "app": "Arkerogue",
-    "version": "1.0"
-  }
+ "filename":"9001.png",
+ "rotated":false,
+ "trimmed":false,
+ "sourceSize":{
+    "w":181,
+    "h":181
+ },
+ "spriteSourceSize":{
+    "x":0,
+    "y":0,
+    "w":181,
+    "h":181
+ },
+ "frame":{
+    "x":0,
+    "y":0,
+    "w":181,
+    "h":181
+ }
 }
