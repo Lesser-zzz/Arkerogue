@@ -138,12 +138,13 @@ class DefaultOverrides {
   readonly FREE_CANDY_UPGRADE_OVERRIDE: boolean = false;
   readonly POKEBALL_OVERRIDE: { active: boolean; pokeballs: PokeballCounts } = {
     active: false,
+    //포켓볼 치트임 ㅇㅇ
     pokeballs: {
       [PokeballType.POKEBALL]: 5,
       [PokeballType.GREAT_BALL]: 0,
       [PokeballType.ULTRA_BALL]: 0,
       [PokeballType.ROGUE_BALL]: 0,
-      [PokeballType.MASTER_BALL]: 0,
+      [PokeballType.MASTER_BALL]: 99,
     },
   };
   /** Forces an item to be UNLOCKED */
