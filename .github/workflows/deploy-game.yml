@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write  # 체인지로그 작성을 위해 read에서 write로 권한 상향
   pages: write
   id-token: write
 
@@ -22,10 +22,36 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive 
+          fetch-depth: 2 # 커밋 메시지를 정확히 읽어오기 위해 설정
+
+      # --- [체인지로그 자동화 스텝 추가] ---
+      - name: Update Changelog Automatically
+        if: github.event_name == 'push'
+        run: |
+          # 한국 시간(KST) 및 방금 푸시된 커밋 메시지 추출
+          CURRENT_TIME=$(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M:%S KST')
+          COMMIT_MSG=$(git log -1 --pretty=format:"%B")
+          
+          if [ ! -f CHANGELOG.md ]; then touch CHANGELOG.md; fi
+          
+          # 임시 파일에 새 로그를 쓰고 기존 로그를 아래에 덧붙임
+          echo "### 🕒 $CURRENT_TIME" > temp_changelog.md
+          echo "$COMMIT_MSG" >> temp_changelog.md
+          echo "" >> temp_changelog.md
+          echo "---" >> temp_changelog.md
+          echo "" >> temp_changelog.md
+          cat CHANGELOG.md >> temp_changelog.md
+          mv temp_changelog.md CHANGELOG.md
+          
+          # 봇 계정으로 변경사항 자동 커밋 및 푸시
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add CHANGELOG.md
+          git commit -m "docs: 체인지로그 자동 업데이트 [skip ci]" || echo "No changes to commit"
+          git push
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        # ⭐️ 충돌을 일으키던 with: version: 10 부분을 완전히 삭제했습니다! 알아서 똑똑하게 설치할 겁니다.
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
